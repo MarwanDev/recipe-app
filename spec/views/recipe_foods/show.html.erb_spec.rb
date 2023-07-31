@@ -1,15 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe "recipe_foods/show", type: :view do
+RSpec.describe 'recipe_foods/show', type: :view do
   before(:each) do
     assign(:recipe_food, RecipeFood.create!(
-      quantity: "9.99",
-      user: nil,
-      recipe: nil
-    ))
+                           quantity: '9.99',
+                           user: nil,
+                           recipe: nil
+                         ))
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/9.99/)
     expect(rendered).to match(//)
