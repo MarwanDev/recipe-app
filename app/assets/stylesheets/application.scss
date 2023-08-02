@@ -26,6 +26,11 @@ body {
   font-size: 16px;
 }
 
+.all-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
 button {
   padding: 10px 20px;
   background-color: transparent; 
