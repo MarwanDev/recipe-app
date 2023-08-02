@@ -13,10 +13,11 @@ class RecipesController < ApplicationController
     @user = @recipe.user
 
     if @recipe.public || (@user == current_user)
-      @recipe_food = Recipefood.new
+      @recipe_food = RecipeFood.new
     else 
-      redirect_to new_user_food_path, alert: "Sorry! This is a private recipe"
+      redirect_to new_user_recipe_recipe_food(@user, @recipe), alert: "Sorry! This is a private recipe"
   end
+end
 
   # GET /recipes/new
   def new
