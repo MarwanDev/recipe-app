@@ -16,7 +16,7 @@
       <ul>
         <li><%= link_to "Users", users_path %></li>
         <li><%= link_to "Foods", user_foods_path(current_user) %></li>
-        <li><%= link_to "Recipes", recipes_path %></li>
+        <li><%= link_to "Recipes", user_recipes_path(current_user) %></li>
         <li><%= link_to "Recipe Foods", recipe_foods_path %></li>
       </ul>
     </nav>
