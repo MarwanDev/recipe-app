@@ -67,6 +67,11 @@ end
     end
   end
 
+  
+  def shopping_list
+    @recipe = Recipe.includes(recipe_foods: :food).find(params[:id])
+  end
+  
   private
 
   # Use callbacks to share common setup or constraints between actions.
