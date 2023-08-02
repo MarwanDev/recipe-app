@@ -77,6 +77,7 @@ end
   def shopping_list
     @user = current_user
     @recipe = Recipe.includes(recipe_food: :food).find_by(user_id: params[:user_id], id: params[:id])
+    render :_shopping_list, formats: [:html]
   end
 
   private
