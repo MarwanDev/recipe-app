@@ -10,6 +10,12 @@ class RecipesController < ApplicationController
   # GET /recipes/1 or /recipes/1.json
   def show
     @recipe = Recipe.includes(:user).find_by(user_id: params[:user_id], id: params[:id])
+    
+    if @recipe.nil?
+      redirect_to user_recipes_path(current_user), alert: "Recipe not found."
+      return
+    end
+  
     @user = @recipe.user
 
     if @recipe.public || (@user == current_user)
@@ -69,7 +75,8 @@ end
 
   
   def shopping_list
-    @recipe = Recipe.includes(recipe_food: :food).find(params[:id])
+    @user = current_user
+    @recipe = Recipe.includes(recipe_food: :food).find_by(user_id: params[:user_id], id: params[:id])
   end
 
   private
