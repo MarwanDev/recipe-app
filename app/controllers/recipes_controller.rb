@@ -11,6 +11,11 @@ class RecipesController < ApplicationController
   def show
     @recipe = Recipe.includes(:user).find_by(user_id: params[:user_id], id: params[:id])
     @user = @recipe.user
+
+    if @recipe.public || (@user == current_user)
+      @recipe_food = Recipefood.new
+    else 
+      redirect_to new_user_food_path, alert: "Sorry! This is a private recipe"
   end
 
   # GET /recipes/new
