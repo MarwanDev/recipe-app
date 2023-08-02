@@ -1,27 +1,32 @@
 <p style="color: green"><%= notice %></p>
 
+<button>
 <%= link_to "New food", new_user_food_path(current_user) %>
+</button>
 
 <h1>Foods</h1>
 <table>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Quantity</th>
+      <th>Meaurement Unit</th>
+      <th>Unit Price</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-# <div id="foods">
+
   <% @foods.each do |food| %>
     <tr>
       <td><%= food.name %></td>
       <td> <%= food.meaurement_unit %></td>
       <td><%= food.price %></td>
-      # <%= render food %>
+      <td></td>
+  
     </tr>
   <% end %>
   </tbody>
 </table>
-# </div>
+
 
 
