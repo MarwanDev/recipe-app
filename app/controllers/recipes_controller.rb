@@ -5,6 +5,7 @@ class RecipesController < ApplicationController
   def index
     @user = current_user
     @recipes = Recipe.includes(:user).where(user_id: params[:user_id])
+    @recipe = Recipe.includes(:user).find_by(user_id: params[:user_id], id: params[:id])
   end
 
   # GET /recipes/1 or /recipes/1.json
@@ -56,7 +57,7 @@ class RecipesController < ApplicationController
     @recipe.destroy
 
     respond_to do |format|
-      format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
+      format.html { redirect_to user_recipes_url(current_user), notice: 'Recipe was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
