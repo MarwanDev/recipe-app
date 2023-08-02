@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
     resources :recipes, only: [:index, :show, :new, :create] do
       member do
-        get 'shopping_list', to: 'recipes#shopping_list'
+        get 'shopping_list'
       end
       resources :recipe_foods, only: [:index, :show, :new, :create]    
     end

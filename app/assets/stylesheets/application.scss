@@ -141,12 +141,18 @@ td:first-child {
 
 // Recipe#show
 .recipe-show-buttons {
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .top-recipe-show {
   padding-bottom: 25px;
   border-bottom: 2px solid $black;
   margin-bottom: 20px;
+}
+
+.recipe-details {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
 }
