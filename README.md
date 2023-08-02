@@ -106,9 +106,9 @@ Not yet deployed ...
 
 ## :busts_in_silhouette: Authors <a name="authors"></a>
 :bust_in_silhouette: **Marwan Abdelsattar**
-- GitHub: [@](https://github.com/)
-- Twitter: [@](https://twitter.com/)
-- LinkedIn: [](https://www.linkedin.com/in/)
+- GitHub: [@](https://github.com/MarwanDev)
+- Twitter: [@](https://twitter.com/marwanEg)
+- LinkedIn: [](https://www.linkedin.com/in/marwan-abdelsattar)
 
 :bust_in_silhouette: **Joy Phoebe**
 - GitHub: [@joyapisi](https://github.com/joyapisi)
