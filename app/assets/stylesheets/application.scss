@@ -13,19 +13,44 @@
  *= require_tree .
  *= require_self
  */
+@import url('https://fonts.googleapis.com/css2?family=Puritan&family=Roboto&display=swap');
 
-$pri-text-color: #333;
-$hover-text-color: #fff;
+$dark-grey: #adadad;
+$light-grey: #e7e7e7;
+$white: #fff;
+$black: #000;
+$font: "Alkatra", cursive;
+
+body {
+  font-family: $font;
+  padding: 20px 25px;
+  font-size: 16px;
+}
+
+.all-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: $black;
+  border: 2px solid $black;
+  box-shadow: 4px 5px 5px $black;
+  transition: box-shadow 0.3s;
+  text-align: center;
+  font-family: $font;
+}
+
 //  Navigation
-
 nav {
   display: flex;
   align-items: flex-end;
   justify-content: center;
   flex-wrap: nowrap;
   background-color: transparent;
-  margin-left: 60%;
-  padding: 10px;
+  margin-left: 70%;
   width: 30%;
 
   ul {
@@ -41,15 +66,46 @@ nav {
   }
 
   a {
-    color: $pri-text-color;
+    color: $black;
     text-decoration: none;
     padding: 10px;
   }
 
   a:hover {
-    background-color: $pri-text-color;
-    color: $hover-text-color;
+    background-color: $black;
+    color: $white;
   }
+}
+
+// food#index
+table {
+  border: 3px solid $black;
+  border-collapse: collapse;
+  text-align: left;
+  width: 100%;
+}
+
+td,
+th {
+  border: 3px solid $black;
+  padding: 8px;
+}
+
+th {
+  background-color: $dark-grey;
+}
+
+tr:nth-child(even) {
+  background-color: $light-grey;
+}
+
+tr:nth-child(odd) {
+  background-color: $white;
+}
+
+td:first-child {
+  font-weight: bold;
+  color: $black;
 }
 
 .recipe-description-text {
