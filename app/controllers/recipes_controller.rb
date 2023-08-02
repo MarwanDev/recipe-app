@@ -5,7 +5,6 @@ class RecipesController < ApplicationController
   def index
     @user = current_user
     @recipes = Recipe.includes(:user).where(user_id: params[:user_id])
-    @recipe = Recipe.includes(:user).find_by(user_id: params[:user_id], id: params[:id])
   end
 
   # GET /recipes/1 or /recipes/1.json
