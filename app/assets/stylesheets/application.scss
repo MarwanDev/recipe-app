@@ -131,3 +131,9 @@ td:first-child {
 .recipe-del-btn {
   margin-left: 70px;
 }
+
+#recipes {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
