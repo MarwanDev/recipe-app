@@ -33,10 +33,10 @@ body {
 
 button {
   padding: 10px 20px;
-  background-color: transparent; 
-  color: $pri-color; 
-  border: 2px solid $pri-color; 
-  box-shadow:  4px 5px 5px $pri-color; 
+  background-color: transparent;
+  color: $pri-color;
+  border: 2px solid $pri-color;
+  box-shadow: 4px 5px 5px $pri-color;
   transition: box-shadow 0.3s;
   text-align: center;
   font-family: $font;
@@ -78,24 +78,24 @@ nav {
 
 // food#index
 table {
-  border: 3px solid #000; 
-  border-collapse: collapse; 
+  border: 3px solid #000;
+  border-collapse: collapse;
   text-align: left;
-  width: 100%; 
+  width: 100%;
 }
 
-td, th {
-  border: 3px solid $pri-color; 
-  padding: 8px; 
+td,
+th {
+  border: 3px solid $pri-color;
+  padding: 8px;
 }
 
 th {
   background-color: #adadad;
 }
 
-
 tr:nth-child(even) {
-  background-color: #f2f2f2; 
+  background-color: #f2f2f2;
 }
 
 tr:nth-child(odd) {
