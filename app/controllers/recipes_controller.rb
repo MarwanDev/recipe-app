@@ -3,11 +3,15 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.all
+    @user = current_user
+    @recipes = Recipe.includes(:user).where(user_id: params[:user_id])
   end
 
   # GET /recipes/1 or /recipes/1.json
-  def show; end
+  def show
+    @recipe = Recipe.includes(:user).find_by(user_id: params[:user_id], id: params[:id])
+    @user = @recipe.user
+  end
 
   # GET /recipes/new
   def new
@@ -20,10 +24,12 @@ class RecipesController < ApplicationController
   # POST /recipes or /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
+    @user = current_user
+    @recipe.user_id = @user.id
 
     respond_to do |format|
       if @recipe.save
-        format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully created.' }
+        format.html { redirect_to user_recipe_path(@user, @recipe), notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
         format.html { render :new, status: :unprocessable_entity }
