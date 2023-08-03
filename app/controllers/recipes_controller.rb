@@ -10,7 +10,19 @@ class RecipesController < ApplicationController
   # GET /recipes/1 or /recipes/1.json
   def show
     @recipe = Recipe.includes(:user).find_by(user_id: params[:user_id], id: params[:id])
+
+    if @recipe.nil?
+      redirect_to user_recipes_path(current_user), alert: 'Recipe not found.'
+      return
+    end
+
     @user = @recipe.user
+
+    if @recipe.public || (@user == current_user)
+      @recipe_food = RecipeFood.new
+    else
+      redirect_to new_user_recipe_recipe_food(@user, @recipe), alert: 'Sorry! This is a private recipe'
+    end
   end
 
   # GET /recipes/new
@@ -59,6 +71,12 @@ class RecipesController < ApplicationController
       format.html { redirect_to user_recipes_url(current_user), notice: 'Recipe was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def shopping_list
+    @user = current_user
+    @recipe = Recipe.includes(recipe_food: :food).find_by(user_id: params[:user_id], id: params[:id])
+    render :_shopping_list, formats: [:html]
   end
 
   private

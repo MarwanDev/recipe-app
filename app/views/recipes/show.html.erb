@@ -1,8 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @recipe %>
+<h1><%= @recipe.name %></h1>
+<div class="top-recipe-show" >
+  <div class= "recipe-details">
+    <div class="left-side"
+      <p><%= "Preperation Time: #{@recipe.preparation_time}" %></p>
+      <p><%= "Cooking Time: #{@recipe.cooking_time}" %></p>
+      <p><%= @recipe.description %></p>
+    </div>
+    <div class="right-side">
+      <%= form_with model: @recipe, url: recipe_path(@recipe), method: :patch do |form| %>
+        <%= form.hidden_field :public, value: !@recipe.public %>
+        <%= form.submit "Toggle Public/Private", class: 'button' %>
+      <% end %>
+    </div>
+  </div>
 
-<div>
+  <div class="recipe-show-buttons">
+    <button>
+      <%= link_to "Generate shopping list", generate_shopping_list_user_recipe_recipe_food_path(@recipe.user, @recipe), method: :get, class: 'button' %>
+    </button>
+    <button>
+    <%= link_to "Add ingredient", new_user_food_path(current_user), class: 'button' %>
+    </button>
+  </div>
+</div>
+
+<%= render 'recipe_foods/generate_shopping_list' %>
+
+<div class="all-buttons">
   <%= link_to "Back to recipes", user_recipes_path(current_user) %>
-
 </div>
