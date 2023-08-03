@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Foods views', type: :feature do
-  @user1 = User.create!(name: "user1",
-                        email: "user1@gmail.com",
-                        password: 'user1password', password_confirmation: 'user1password')
-  @food1 = Food.create(name: 'Apple', measurement_unit: 'grams', price: 25.00, quantity: 1, user: @user1)
+  let!(:uniqueuser) { FactoryBot.create(:user, name: "uniqueuser", email: "uniqueuser@gmail.com", password: 'uniqueuserpassword', password_confirmation: 'uniqueuserpassword') }
+  let!(:uniquefood) { FactoryBot.create(:food, name: 'Apple', measurement_unit: 'grams', price: 25.00, quantity: 1, user: uniqueuser) }
 
   describe 'food#index' do
-    it 'should display all created foods ' do
+    it 'should display all created foods' do
       visit '/foods'
       expect(page).to have_content('Apple')
     end

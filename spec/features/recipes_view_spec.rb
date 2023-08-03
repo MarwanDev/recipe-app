@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'Recipe', type: :feature do
-  let(:user1) do
+  let(:uniqueuser1) do
     User.create!(
-      name: "user1",
-      email: "user1@gmail.com",
-      password: 'user1password',
-      password_confirmation: 'user1password'
+      name: "uniqueuser1",
+      email: "uniqueuser1@gmail.com",
+      password: 'uniqueuser1password',
+      password_confirmation: 'uniqueuser1password'
     )
   end
 
@@ -18,7 +18,7 @@ RSpec.describe 'Recipe', type: :feature do
         cooking_time: '15 minutes',
         description: 'My yummy recipe',
         public: false,
-        user: user1
+        user: uniqueuser1
       ),
       Recipe.create!(
         name: 'Recipe2',
@@ -26,7 +26,7 @@ RSpec.describe 'Recipe', type: :feature do
         cooking_time: '20 minutes',
         description: 'My other yummy recipe',
         public: false,
-        user: user1
+        user: uniqueuser1
       )
     ])
   end
