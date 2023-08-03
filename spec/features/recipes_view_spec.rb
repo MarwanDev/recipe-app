@@ -1,24 +1,46 @@
 require 'rails_helper'
-require 'faker'
 
-RSpec.describe 'Food', type: :feature do
-  @abel = User.create!(name: Faker::Name.unique.name,
-                       email: Faker::Internet.email,
-                       password: '1234567', password_confirmation: '1234567')
-  @shiro = Food.create(name: 'Shiro', measurement_unit: 'KG', price: 45.99, quantity: 2, user: @abel)
-
-  describe 'food index' do
-    it 'should render the food ' do
-      visit '/foods'
-      expect(page).to have_content('Shiro')
-    end
+RSpec.describe 'Recipe', type: :feature do
+  let(:user1) do
+    User.create!(
+      name: "user1",
+      email: "user1@gmail.com",
+      password: 'user1password',
+      password_confirmation: 'user1password'
+    )
   end
 
-  describe 'navigation to new form' do
-    it 'should take the user to new foods form page' do
-      visit '/foods'
-      click_link 'Add Food'
-      expect(page).to have_current_path('/foods/new')
+  before(:each) do
+    assign(:recipes, [
+      Recipe.create!(
+        name: 'Recipe1',
+        preparation_time: '30 minutes',
+        cooking_time: '15 minutes',
+        description: 'My yummy recipe',
+        public: false,
+        user: user1
+      ),
+      Recipe.create!(
+        name: 'Recipe2',
+        preparation_time: '5 minutes',
+        cooking_time: '20 minutes',
+        description: 'My other yummy recipe',
+        public: false,
+        user: user1
+      )
+    ])
+  end
+
+  it 'renders a list of recipes' do
+    render
+    expect(rendered).to match(/Recipe1/)
+    expect(rendered).to match(/Recipe2/)
+  end
+
+  describe 'Recipe#show: Should display public recipes' do
+    it 'should show the public recipes' do
+      visit '/public_recipes'
+      expect(page).to have_content('Public')
     end
   end
 end
