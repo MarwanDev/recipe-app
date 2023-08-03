@@ -57,14 +57,15 @@ class RecipeFoodsController < ApplicationController
 
   def generate_shopping_list
     @recipe = Recipe.find(params[:id])
-    @recipe_foods = @recipe.recipe_foods.includes(:food)
+    @recipe_foods = @recipe.recipe_food.includes(:food)
 
     @ingredients = @recipe_foods.map { |rf| rf.food.name }
 
     respond_to do |format|
+      format.html # Render a template (e.g., generate_shopping_list.html.erb)
       format.json { render json: @ingredients }
+    end
   end
-end
 
   private
 
