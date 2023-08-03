@@ -1,0 +1,26 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Public Recipes</h1>
+
+<div id="recipes">
+  <% @public_recipes.each do |recipe| %>
+    <div id="<%= dom_id recipe %>" class="recipe-container">
+<%= link_to user_recipe_path(current_user, recipe), class: "recipe-container-link" do %>
+<div>
+  <p>
+    <%= recipe.name %>
+  </p>
+  <p>
+  By: <%= recipe.user.name %>
+</p>
+  <p class="recipe-description-text">
+  <%= recipe.description %>
+  </p>
+  </div>
+  <% end %>
+  </div>
+
+  <% end %>
+</div>
+
+<%= link_to "New recipe", new_user_recipe_path(current_user) %>
