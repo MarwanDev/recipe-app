@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Recipe', type: :feature do
-  let(:user) { User.create!(name: "Test User", email: "test@example.com", password: "testpassword") }
+  let(:user) { User.create!(name: 'Test User', email: 'test@example.com', password: 'testpassword') }
 
   describe 'Recipe#show: Should display only public recipes' do
     it 'should show the public recipes when the user is signed in' do

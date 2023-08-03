@@ -11,12 +11,12 @@ RSpec.describe Recipe, type: :model do
   subject do
     Recipe.new(
       name: 'Camel meat',
-               preparation_time: '4 hours',
-               cooking_time: '8 hours',
-               description: 'Yummy recipe',
-               public: false, 
-               user: specialuser
-               )
+      preparation_time: '4 hours',
+      cooking_time: '8 hours',
+      description: 'Yummy recipe',
+      public: false,
+      user: specialuser
+    )
   end
 
   before { subject.save }

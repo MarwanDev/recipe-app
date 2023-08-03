@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'faker'
 
 RSpec.describe 'Foods views', type: :feature do
-  let(:user) { User.create!(name: "Test User", email: "test@example.com", password: "testpassword") }
+  let(:user) { User.create!(name: 'Test User', email: 'test@example.com', password: 'testpassword') }
 
   before(:each) do
     # Manually set the current_user to the signed-in user
@@ -12,8 +12,8 @@ RSpec.describe 'Foods views', type: :feature do
   describe 'food#index' do
     it 'should display all created foods for the current user' do
       # Create some foods for the user
-      food1 = Food.create(name: 'Apple', meaurement_unit: 'grams', price: 25.00, quantity: 1, user: user)
-      food2 = Food.create(name: 'Banana', meaurement_unit: 'grams', price: 15.00, quantity: 2, user: user)
+      Food.create(name: 'Apple', meaurement_unit: 'grams', price: 25.00, quantity: 1, user:)
+      Food.create(name: 'Banana', meaurement_unit: 'grams', price: 15.00, quantity: 2, user:)
 
       visit '/foods'
 
