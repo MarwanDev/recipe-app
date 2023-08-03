@@ -35,7 +35,7 @@ class RecipeFoodsController < ApplicationController
     respond_to do |format|
       if @recipe_food.save
         format.html do
-          redirect_to uesr_recipe_url(current_user, @recipe), notice: 'Recipe food was successfully created.'
+          redirect_to user_recipe_path(current_user, @recipe), notice: 'Recipe food was successfully created.'
         end
       else
         format.html { render :new, status: :unprocessable_entity }
