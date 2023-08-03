@@ -16,7 +16,10 @@ Rails.application.routes.draw do
       member do
         get 'shopping_list'
       end
-      resources :recipe_foods, only: [:index, :show, :new, :create]    
+      resources :recipe_foods, only: [:index, :show, :new, :create] 
+        member do
+          get 'generate_shopping_list'
+        end   
     end
   end
 end
