@@ -55,6 +55,17 @@ class RecipeFoodsController < ApplicationController
     end
   end
 
+  def generate_shopping_list
+    @recipe = recipe.find(params[:id])
+    @recipe_foods = @recipe.recipe_foods.includes(:food)
+
+    @ingredients = @recipe_foods.map { |rf| rf.food.name }
+
+    respond_to do |format|
+      format.json { render json: @ingredients }
+  end
+end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
