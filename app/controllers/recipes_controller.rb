@@ -23,6 +23,8 @@ class RecipesController < ApplicationController
     else
       redirect_to new_user_recipe_recipe_food(@user, @recipe), alert: 'Sorry! This is a private recipe'
     end
+
+    @recipe_foods = RecipeFood.includes(:recipe).where(recipe_id: @recipe.id)
   end
 
   # GET /recipes/new

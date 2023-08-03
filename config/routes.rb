@@ -23,4 +23,5 @@ Rails.application.routes.draw do
       end   
     end
   end
+  resources :public_recipes
 end
