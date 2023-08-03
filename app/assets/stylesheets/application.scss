@@ -107,3 +107,33 @@ td:first-child {
   font-weight: bold;
   color: $black;
 }
+
+.recipe-description-text {
+  text-decoration: none;
+  text-align: center;
+}
+
+.recipe-container-link {
+  text-decoration: none;
+  color: black;
+  padding: 10px 50px;
+  margin: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.recipe-container {
+  border: 3px solid black;
+  padding-bottom: 20px;
+}
+
+.recipe-del-btn {
+  margin-left: 70px;
+}
+
+#recipes {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
