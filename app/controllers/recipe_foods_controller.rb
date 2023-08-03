@@ -56,7 +56,7 @@ class RecipeFoodsController < ApplicationController
   end
 
   def generate_shopping_list
-    @recipe = recipe.find(params[:id])
+    @recipe = Recipe.find(params[:id])
     @recipe_foods = @recipe.recipe_foods.includes(:food)
 
     @ingredients = @recipe_foods.map { |rf| rf.food.name }
