@@ -1,5 +1,5 @@
 class PublicRecipesController < ApplicationController
-    def index
+  def index
     @public_recipes = Recipe.includes(:user).where(public: true).order(created_at: :desc)
 
     @total_prices = {}
@@ -8,4 +8,4 @@ class PublicRecipesController < ApplicationController
       @total_prices[recipe.id] = total_price
     end
   end
-  end
+end
