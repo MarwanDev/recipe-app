@@ -5,25 +5,34 @@
 <div id="recipes">
   <% @public_recipes.each do |recipe| %>
     <div id="<%= dom_id recipe %>" class="recipe-container">
-  <%= link_to user_recipe_path(recipe.user, recipe), class: "recipe-container-link" do %>
-  <div class="public-recipe-con">
-    <p>
+      <%= link_to user_recipe_path(recipe.user, recipe), class: "recipe-container-link" do %>
+    <div>
+    <div class= "inner-content">
+    <div>
+    <h1>
       <%= recipe.name %>
-    </p>
-    <p class="recipe-description-text">
-      Total Food Items: <%= recipe.recipe_foods.size %>
-    </p>
-    <p class="recipe-description-text">
-    Total Price: <%= recipe.recipe_foods.joins(:food).sum('foods.price') %>
-   </p>
+    </h1>
     <br/>
-    <p>
+    <h3>
       By: <%= recipe.user.name %>
-    </p>
+    </h3>
+    </div>
+    
+
+<div>
+      <h2 class="recipe-description-text">
+        Total food items: <%= recipe.recipe_foods.count %>    
+      </h2>
+      <h2 class="recipe-description-text">
+        Total price: <%= @total_prices[recipe.id] %>
+      </h2>
+      </div>
+      </div>
+    <br/>
+    
     </div>
     <% end %>
     </div>
 
   <% end %>
 </div>
-
