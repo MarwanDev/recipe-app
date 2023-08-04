@@ -10,7 +10,7 @@ Rails.application.configure do
 
   # Turn false under Spring and add config.action_view.cache_template_loading = true.
   config.cache_classes = true
-
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # Eager loading loads your whole application. When running a single test locally,
   # this probably isn't necessary. It's a good idea to do in a continuous integration
   # system, or in some way before deploying your code.
@@ -57,4 +57,5 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end

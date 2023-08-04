@@ -1,8 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe RecipeFoodsController, type: :request do
+RSpec.describe RecipesController, type: :request do
   let(:user) { User.new(name: 'Mario', email: 'mario@mario.com', password: 'password') }
-  let(:food) { Food.new(name: 'bala7', meaurement_unit: 'kgs', price: 700, quantity: 20, user:) }
   let(:recipe) do
     Recipe.new(
       name: 'Recipe 1',
@@ -13,13 +12,6 @@ RSpec.describe RecipeFoodsController, type: :request do
       user:
     )
   end
-  let(:recipe_food) do
-    RecipeFood.new(
-      quantity: 12,
-      food_id: food.id,
-      recipe:
-    )
-  end
   before do
     user.skip_confirmation!
     user.save
@@ -28,17 +20,24 @@ RSpec.describe RecipeFoodsController, type: :request do
     recipe.save
   end
 
-  describe 'GET recipe#show' do
+  describe 'GET recipe#index' do
     it 'returns a successful response' do
-      get user_recipe_path(user, recipe)
+      get user_recipes_path(user)
       expect(response).to be_successful
     end
   end
 
-  describe 'POST recipe_food#new' do
+  describe 'POST recipe#new' do
     it 'returns a successful response' do
-      get new_user_recipe_recipe_food_path(user, recipe, recipe_food)
+      get new_user_recipe_path(user)
       expect(response).to be_successful
+    end
+  end
+
+  describe 'DELETE recipe#destroy' do
+    it 'returns a successful response' do
+      delete user_recipe_path(user, recipe.id)
+      expect(response).to redirect_to(user_recipes_path(user))
     end
   end
 end

@@ -9,11 +9,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/") 
   resources :users, only: [:index, :show, :new, :create] do
-    resources :foods, only: [:index, :show, :new, :create] do
-      resources :recipe_foods, only: [:index, :show, :new, :create]
+    resources :foods, only: [:index, :show, :new, :create, :destroy] do
+      resources :recipe_foods, only: [:index, :show, :new, :create, :destroy]
     end
-    resources :recipes, only: [:index, :show, :new, :create] do
-      resources :recipe_foods, only: [:index, :show, :new, :create] do
+    resources :recipes, only: [:index, :show, :new, :create, :destroy] do
+      resources :recipe_foods, only: [:index, :show, :new, :create, :destroy] do
       end
       resources :shopping_list, only: [:index, :show, :new, :create]
     end

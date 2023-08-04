@@ -70,7 +70,7 @@ class RecipesController < ApplicationController
     @recipe.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_recipes_url(current_user), notice: 'Recipe was successfully destroyed.' }
+      format.html { redirect_to user_recipes_path(current_user), notice: 'Recipe was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
