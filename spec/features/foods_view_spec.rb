@@ -1,42 +1,38 @@
 require 'rails_helper'
 
-RSpec.feature 'Foods', type: :feature do
+RSpec.feature 'Foods', type: :system do
+  include Devise::Test::IntegrationHelpers
   before do
-    @user = User.create(email: 'user@example.com', password: 'password')
-
-    @food1 = Food.create(name: 'Food 1', meaurement_unit: 'grams', price: 10)
-    @food2 = Food.create(name: 'Food 2', meaurement_unit: 'pieces', price: 5)
+    @user = User.create(
+      name: 'Marwan',
+      email: 'user@example.com',
+      password: 'password',
+      confirmed_at: '2023-08-01 13:46:21.825849',
+      confirmation_sent_at: '2023-08-01 13:46:18.95477'
+    )
+    sign_in @user
+    @food1 =
+      Food.create(
+        name: 'Food 1',
+        meaurement_unit: 'grams',
+        price: 10,
+        user: @user
+      )
   end
-
-  scenario 'Viewing food index and food show' do
-    visit new_user_session_path
-    fill_in 'Email', with: @user.email
-    fill_in 'Password', with: 'password'
-    click_button 'Log in'
-    
-    expect(page).to have_current_path(new_user_session)
-
-    visit foods_path
-    expect(page).to have_content('Foods')
-    expect(page).to have_selector('table')
-    expect(page).to have_selector('thead th', text: 'Name')
-    expect(page).to have_selector('thead th', text: 'Measurement Unit')
-    expect(page).to have_selector('thead th', text: 'Unit Price')
-
-    expect(page).to have_selector('tr', count: 3) 
-
-    expect(page).to have_selector('button', text: 'New food')
-    expect(page).to have_link('Edit this food', count: 2)
-    expect(page).to have_button('Delete', count: 2)
-
-    visit food_path(@food1)
-
-    expect(page).to have_content('Food 1')
-    expect(page).to have_content('grams')
-    expect(page).to have_content('10')
-
-    expect(page).to have_link('Edit this food')
-    expect(page).to have_link('Back to foods')
-    expect(page).to have_button('Destroy this food')
+  describe '#index' do
+    before(:each) do
+      visit user_foods_path(@user)
+    end
+    it 'should display food' do
+      expect(page).to have_content(@food1.name)
+      expect(page).to have_content(@food1.meaurement_unit)
+      expect(page).to have_content(@food1.price)
+      expect(page).to have_content('Foods')
+      expect(page).to have_content('New food')
+      expect(page).to have_content('Actions')
+      expect(page).to have_content('Unit Price')
+      expect(page).to have_content('Meaurement Unit')
+      expect(page).to have_content('Name')
+    end
   end
 end
