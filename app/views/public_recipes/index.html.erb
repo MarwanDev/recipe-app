@@ -6,13 +6,16 @@
   <% @public_recipes.each do |recipe| %>
     <div id="<%= dom_id recipe %>" class="recipe-container">
   <%= link_to user_recipe_path(recipe.user, recipe), class: "recipe-container-link" do %>
-  <div>
+  <div class="public-recipe-con">
     <p>
       <%= recipe.name %>
     </p>
     <p class="recipe-description-text">
-    <%= recipe.description %>
+      Total Food Items: <%= recipe.recipe_foods.size %>
     </p>
+    <p class="recipe-description-text">
+    Total Price: <%= recipe.recipe_foods.joins(:food).sum('foods.price') %>
+   </p>
     <br/>
     <p>
       By: <%= recipe.user.name %>
