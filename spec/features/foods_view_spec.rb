@@ -1,33 +1,45 @@
 require 'rails_helper'
-require 'faker'
 
-RSpec.describe 'Foods views', type: :feature do
-  let(:user) { User.create!(name: 'Test User', email: 'test@example.com', password: 'testpassword') }
+RSpec.feature 'Foods', type: :feature do
+  before do
+    @user = User.create(email: 'user@example.com', password: 'password')
 
-  before(:each) do
-    # Manually set the current_user to the signed-in user
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    @food1 = Food.create(name: 'Food 1', meaurement_unit: 'grams', price: 10)
+    @food2 = Food.create(name: 'Food 2', meaurement_unit: 'pieces', price: 5)
   end
 
-  describe 'food#index' do
-    it 'should display all created foods for the current user' do
-      # Create some foods for the user
-      Food.create(name: 'Apple', meaurement_unit: 'grams', price: 25.00, quantity: 1, user:)
-      Food.create(name: 'Banana', meaurement_unit: 'grams', price: 15.00, quantity: 2, user:)
+  scenario 'Viewing food index and food show' do
+    visit new_user_session_path
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: 'password'
+    click_button 'Log in'
+    
+    expect(page).to have_current_path(root_path)
 
-      visit '/foods'
+    visit foods_path
+    expect(page).to have_content('Foods')
+    expect(page).to have_selector('table')
+    expect(page).to have_selector('thead th', text: 'Name')
+    expect(page).to have_selector('thead th', text: 'Measurement Unit')
+    expect(page).to have_selector('thead th', text: 'Unit Price')
 
-      # Now, test the content on the page
-      expect(page).to have_content('Apple')
-      expect(page).to have_content('Banana')
-    end
-  end
+    expect(page).to have_selector('tr', count: 3) 
 
-  describe 'button to form that creates new food' do
-    it 'should direct the user to the form that creates new food' do
-      visit '/foods'
-      click_link 'New Food'
-      expect(page).to have_current_path(new_food_path)
-    end
+    expect(page).to have_selector('button', text: 'New food')
+    expect(page).to have_link('Edit this food', count: 2)
+    expect(page).to have_button('Delete', count: 2)
+
+    # Step 5: Visit the food show page
+    visit food_path(@food1)
+
+    # Step 6: Check for the presence of elements on the show page
+    expect(page).to have_content('Food 1')
+    expect(page).to have_content('grams')
+    expect(page).to have_content('10')
+
+    # Step 7: Check for the presence of links on the show page
+    expect(page).to have_link('Edit this food')
+    expect(page).to have_link('Back to foods')
+    expect(page).to have_button('Destroy this food')
   end
 end
