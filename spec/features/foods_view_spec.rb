@@ -35,6 +35,5 @@ RSpec.feature 'Foods', type: :system do
       expect(page).to have_content('Meaurement Unit')
       expect(page).to have_content('Name')
     end
-
   end
 end

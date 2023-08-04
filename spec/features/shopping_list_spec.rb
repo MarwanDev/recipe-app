@@ -10,7 +10,7 @@ RSpec.feature 'Shopping list', type: :system do
       confirmed_at: '2023-08-01 13:46:21.825849',
       confirmation_sent_at: '2023-08-01 13:46:18.95477'
     )
-    
+
     sign_in @user
 
     @food1 =
@@ -23,12 +23,12 @@ RSpec.feature 'Shopping list', type: :system do
 
     @recipe1 =
       Recipe.create(
-      name: 'Recipe 1',
-      description: 'desc',
-      public: true,
-      preparation_time: '2 hours',
-      cooking_time: '2 hours',
-      user: @user
+        name: 'Recipe 1',
+        description: 'desc',
+        public: true,
+        preparation_time: '2 hours',
+        cooking_time: '2 hours',
+        user: @user
       )
   end
 

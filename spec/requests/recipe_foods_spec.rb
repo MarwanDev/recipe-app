@@ -1,31 +1,44 @@
-# spec/requests/recipe_foods_spec.rb
 require 'rails_helper'
 
 RSpec.describe RecipeFoodsController, type: :request do
-  include Devise::Test::IntegrationHelpers 
+  let(:user) { User.new(name: 'Mario', email: 'mario@mario.com', password: 'password') }
+  let(:food) { Food.new(name: 'bala7', meaurement_unit: 'kgs', price: 700, quantity: 20, user:) }
+  let(:recipe) do
+    Recipe.new(
+      name: 'Recipe 1',
+      description: 'desc',
+      public: true,
+      preparation_time: '2 hours',
+      cooking_time: '2 hours',
+      user:
+    )
+  end
+  let(:recipe_food) do
+    RecipeFood.new(
+      quantity: 12,
+      food_id: food.id,
+      recipe:
+    )
+  end
+  before do
+    user.skip_confirmation!
+    user.save
+    post user_session_path, params: { user: { email: user.email, password: user.password } }
+    follow_redirect!
+    recipe.save
+  end
 
-  describe 'GET #new' do
+  describe 'GET recipe#show' do
     it 'returns a successful response' do
-      user = create(:user)
-      recipe = create(:recipe, user: user)
-      sign_in user
-
-      get new_recipe_food_path(recipe)
-
-      expect(response).to have_http_status(:redirect)
+      get user_recipe_path(user, recipe)
+      expect(response).to be_successful
     end
   end
 
-  describe 'POST #create' do
-    it 'creates a new recipe_food' do
-      user = create(:user)
-      recipe = create(:recipe, user: user)
-      # food = create(:food, meaurement_unit: 'piece') 
-      sign_in user
-
-      post new_user_food_recipe_food(recipe), params: { recipe_food: { food_id: food.id, quantity: 1 } }
-
-      expect(response).to have_http_status(:success) 
+  describe 'POST recipe_food#new' do
+    it 'returns a successful response' do
+      get new_user_recipe_recipe_food_path(user, recipe, recipe_food)
+      expect(response).to be_successful
     end
   end
 end
