@@ -15,10 +15,10 @@
       <% end %>
     </div>
   </div>
-
+  <% if @recipe.user == current_user %>
   <div class="recipe-show-buttons">
     <button>
-      <%= link_to "Generate shopping list", generate_shopping_list_user_recipe_recipe_food_path(@recipe.user, @recipe), method: :get, class: 'button' %>
+    <%= link_to 'Generate shopping list', user_recipe_shopping_list_path(current_user, @recipe.id), class: 'btn btn-outline-dark' %>
     </button>
     <button>
     <%= link_to "Add ingredient", new_user_recipe_recipe_food_path(current_user, @recipe), class: 'button' %>
@@ -27,6 +27,7 @@
 </div>
 
 <%= render 'recipe_foods/generate_shopping_list' %>
+<% end %>
 
 <div class="all-buttons">
   <%= link_to "Back to recipes", user_recipes_path(current_user) %>

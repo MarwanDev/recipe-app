@@ -13,6 +13,7 @@
       <tr>
         <td><%= recipe_food.food.name %></td>
         <td><%= recipe_food.quantity %></td>
+        <td><%= recipe_food.food.price %></td>
         <td><%= button_to "Delete", recipe_food, method: :delete %></td>
       </tr>
     <% end %>
