@@ -109,8 +109,10 @@ td:first-child {
 }
 
 .recipe-description-text {
+  display: flex;
   text-decoration: none;
   text-align: center;
+  justify-self: flex-end;
 }
 
 .recipe-container-link {
@@ -124,8 +126,20 @@ td:first-child {
 }
 
 .recipe-container {
-  border: 3px solid black;
+  border: 4px solid black;
   padding-bottom: 20px;
+}
+
+.inner-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.public-recipe-right-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 .recipe-del-btn {
@@ -162,10 +176,4 @@ td:first-child {
   gap: 30px;
   align-items: center;
   justify-content: center;
-}
-
-.public-recipe-con {
-  p {
-    font-size: 20px;
-  }
 }
