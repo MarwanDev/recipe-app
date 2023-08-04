@@ -11,7 +11,9 @@
     <div class="right-side">
       <%= form_with model: @recipe, url: recipe_path(@recipe), method: :patch do |form| %>
         <%= form.hidden_field :public, value: !@recipe.public %>
+        <% if @recipe.user.id == current_user.id %>
         <%= form.submit "Toggle Public/Private", class: 'button' %>
+        <% end %>
       <% end %>
     </div>
   </div>
