@@ -13,7 +13,7 @@ RSpec.feature 'Foods', type: :feature do
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    
+
     expect(page).to have_current_path(new_user_session)
 
     visit foods_path
@@ -23,7 +23,7 @@ RSpec.feature 'Foods', type: :feature do
     expect(page).to have_selector('thead th', text: 'Measurement Unit')
     expect(page).to have_selector('thead th', text: 'Unit Price')
 
-    expect(page).to have_selector('tr', count: 3) 
+    expect(page).to have_selector('tr', count: 3)
 
     expect(page).to have_selector('button', text: 'New food')
     expect(page).to have_link('Edit this food', count: 2)

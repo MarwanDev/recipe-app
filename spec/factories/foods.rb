@@ -1,11 +1,9 @@
-# spec/factories/foods.rb
 FactoryBot.define do
-    factory :food do
-      name { "Apple" }
-      meaurement_unit { "grams" }
-      price { 25.00 }
-      quantity { 1 }
-      user
-    end
+  factory :food do
+    # sequence(:email) { |n| "food_#{n}@example.com" }
+    sequence(:name) { |n| "Banana #{n}" }
+    meaurement_unit { 'piece' }
+    price { 2.00 }
+    association :user
   end
-  
+end

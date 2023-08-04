@@ -9,8 +9,10 @@ RSpec.describe 'Recipe', type: :feature do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       # Create some sample recipes (replace this with your actual recipe creation logic)
-      public_recipe = Recipe.create(name: 'Public Recipe', preparation_time: '10 mins', cooking_time: '30 mins', description: 'A public recipe', public: true)
-      private_recipe = Recipe.create(name: 'Private Recipe', preparation_time: '15 mins', cooking_time: '20 mins', description: 'A private recipe', public: false)
+      Recipe.create(name: 'Public Recipe', preparation_time: '10 mins', cooking_time: '30 mins',
+                    description: 'A public recipe', public: true)
+      Recipe.create(name: 'Private Recipe', preparation_time: '15 mins', cooking_time: '20 mins',
+                    description: 'A private recipe', public: false)
 
       visit user_recipes_path(user)
 
