@@ -155,3 +155,11 @@ td:first-child {
   justify-content: space-between;
   padding-bottom: 10px;
 }
+
+.action-column {
+  display: flex;
+  border: none;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}

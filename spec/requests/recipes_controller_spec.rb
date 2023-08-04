@@ -1,38 +1,43 @@
 require 'rails_helper'
 
-RSpec.describe ShoppingListController, type: :controller do
-  describe 'GET #show' do
-    let(:recipe) { create(:recipe) } 
+RSpec.describe RecipesController, type: :request do
+  let(:user) { User.new(name: 'Mario', email: 'mario@mario.com', password: 'password') }
+  let(:recipe) do
+    Recipe.new(
+      name: 'Recipe 1',
+      description: 'desc',
+      public: true,
+      preparation_time: '2 hours',
+      cooking_time: '2 hours',
+      user:
+    )
+  end
+  before do
+    user.skip_confirmation!
+    user.save
+    post user_session_path, params: { user: { email: user.email, password: user.password } }
+    follow_redirect!
+    recipe.save
+  end
 
-    before do
-      firstfood = create(:food)
-      secondfood = create(:food)
-
-      let!(:recipe_firstfood) { create(:recipe_food, recipe: recipe, food: firstfood, quantity: 2) }
-      let!(:recipe_secondfood) { create(:recipe_food, recipe: recipe, food: secondfood, quantity: 3) }
-
-      get :show, params: { recipe_id: recipe.id }
+  describe 'GET recipe#index' do
+    it 'returns a successful response' do
+      get user_recipes_path(user)
+      expect(response).to be_successful
     end
+  end
 
-    it 'assigns the correct recipe' do
-      expect(assigns(:recipe)).to eq(recipe)
+  describe 'POST recipe#new' do
+    it 'returns a successful response' do
+      get new_user_recipe_path(user)
+      expect(response).to be_successful
     end
+  end
 
-    it 'assigns all recipe_food records' do
-      expect(assigns(:recipe_food)).to eq([recipe_firstfood, recipe_secondfood])
-    end
-
-    it 'assigns all food records' do
-      expect(assigns(:food)).to match_array([recipe_firstfood.food, recipe_secondfood.food])
-    end
-
-    it 'calculates the total price correctly' do
-      total_price = (recipe_firstfood.quantity * recipe_firstfood.food.price) + (recipe_secondfood.quantity * recipe_secondfood.food.price)
-      expect(assigns(:total_price)).to eq(total_price)
-    end
-
-    it 'renders the show template' do
-      expect(response).to render_template(:show)
+  describe 'DELETE recipe#destroy' do
+    it 'returns a successful response' do
+      delete user_recipe_path(user, recipe.id)
+      expect(response).to redirect_to(user_recipes_path(user))
     end
   end
 end

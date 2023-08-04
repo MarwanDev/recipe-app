@@ -9,13 +9,15 @@
     </tr>
   </thead>
   <tbody>
-    <% @recipe.recipe_food.each do |recipe_food|  %>
+    <% @recipe.recipe_foods.each do |recipe_food|  %>
       <tr>
         <td><%= recipe_food.food.name %></td>
         <td><%= recipe_food.quantity %></td>
         <td><%= recipe_food.food.price %></td>
         <% if @recipe.user == current_user %>
-          <td><%= button_to "Delete", recipe_food, method: :delete %></td>
+          <td class= 'action-column'><%= button_to "Modify", recipe_food, method: :delete %>
+          <%= button_to "Delete", recipe_food, method: :delete %>
+          </td>
         <% end %>
       </tr>
     <% end %>
