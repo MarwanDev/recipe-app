@@ -75,10 +75,26 @@ class RecipesController < ApplicationController
     end
   end
 
-  def shopping_list
-    @user = current_user
-    @recipe = Recipe.includes(recipe_food: :food).find_by(user_id: params[:user_id], id: params[:id])
-    render :_shopping_list, formats: [:html]
+  def generate_shopping_list
+    redirect_to shopping_list_path(params[:recipe_id])
+  end
+
+  def generate
+    @quantity = []
+    @foods = []
+    @recipe_food = RecipeFood.where(recipe_id: params[:recipe_id])
+    @recipe_food.each do |rf|
+      found = false
+      check_recipe_food = Food.find(rf.food_id)
+      next if found
+
+      @quantity << [rf.quantity, check_recipe_food.price]
+      @foods << check_recipe_food.name
+    end
+    @total = 0
+    @quantity.each do |q|
+      @total += q[0] * q[1]
+    end
   end
 
   private

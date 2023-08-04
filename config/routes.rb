@@ -14,9 +14,11 @@ Rails.application.routes.draw do
     end
     resources :recipes, only: [:index, :show, :new, :create] do
       resources :recipe_foods, only: [:index, :show, :new, :create] do
-      end   
+      end
+      resources :shopping_list, only: [:index, :show, :new, :create]
     end
   end
-  get '/shopping_list', to: 'shopping_list#index'
+  post 'shopping_list/recipe_id=:recipe_id', to: 'recipes#generate_shopping_list', as: 'generate_shopping_list'
+  get 'shopping_list/recipe_id=:recipe_id', to: 'recipes#generate', as: "shopping_list"
   resources :public_recipes
 end
