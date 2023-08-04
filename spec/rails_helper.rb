@@ -7,6 +7,9 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'rspec/rails'
 require 'shoulda/matchers'
 require_relative 'helpers/controller_helpers'
+require 'capybara/rspec'
+require 'webdrivers'
+Webdrivers::Chromedriver.required_version = '114.0.5735.90'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

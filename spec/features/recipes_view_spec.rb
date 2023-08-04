@@ -1,36 +1,48 @@
 require 'rails_helper'
 
-RSpec.describe 'Recipe', type: :feature do
-  let(:user) { User.create!(name: 'Test User', email: 'test@example.com', password: 'testpassword') }
+RSpec.feature 'Recipes', type: :system do
+  include Devise::Test::IntegrationHelpers
+  before do
+    @user = User.create(
+      name: 'Marwan',
+      email: 'user@example.com',
+      password: 'password',
+      confirmed_at: '2023-08-01 13:46:21.825849',
+      confirmation_sent_at: '2023-08-01 13:46:18.95477'
+    )
+    
+    sign_in @user
 
-  describe 'Recipe#show: Should display only public recipes' do
-    it 'should show the public recipes when the user is signed in' do
-      # Manually set the current_user to the signed-in user
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    @recipe1 =
+      Recipe.create(
+      name: 'Recipe 1',
+      description: 'desc',
+      public: true,
+      preparation_time: '2 hours',
+      cooking_time: '2 hours',
+      user: @user
+      )
+  end
 
-      # Create some sample recipes (replace this with your actual recipe creation logic)
-      Recipe.create(name: 'Public Recipe', preparation_time: '10 mins', cooking_time: '30 mins',
-                    description: 'A public recipe', public: true)
-      Recipe.create(name: 'Private Recipe', preparation_time: '15 mins', cooking_time: '20 mins',
-                    description: 'A private recipe', public: false)
 
-      visit user_recipes_path(user)
-
-      # Check if the public recipe is displayed on the index page
-      expect(page).to have_content('Public Recipe')
-
-      # Click on the public recipe link to visit the show page
-      click_link 'Public Recipe'
-
-      # Check for the presence of elements on the show page
-      expect(page).to have_content('Public Recipe')
-      expect(page).to have_content('10 mins')
-      expect(page).to have_content('30 mins')
-      expect(page).to have_content('A public recipe')
-
-      # Check if the "Generate shopping list" and "Add ingredient" buttons are present
-      expect(page).to have_link('Generate shopping list')
-      expect(page).to have_link('Add ingredient')
+  describe '#index' do
+    before(:each) do
+      visit user_recipes_path(@user)
+    end
+    it 'should display recipe' do
+      expect(page).to have_content(@recipe1.name)
+      expect(page).to have_content(@recipe1.description)
+      expect(page).to have_content("Remove")
+      expect(page).to have_content("New recipe")
+      #show
+      visit user_recipe_path(@user, @recipe1)
+      expect(current_path).to eq(user_recipe_path(@user, @recipe1))
+      expect(page).to have_content(@recipe1.name)
+      expect(page).to have_content(@recipe1.description)
+      expect(page).to have_content(@recipe1.preparation_time)
+      expect(page).to have_content(@recipe1.cooking_time)
+      expect(page).to have_content("Add ingredient")
+      expect(page).to have_content("Generate shopping list")
     end
   end
 end
