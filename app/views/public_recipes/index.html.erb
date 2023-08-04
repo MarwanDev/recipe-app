@@ -1,0 +1,29 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Public Recipes</h1>
+
+<div id="recipes">
+  <% @public_recipes.each do |recipe| %>
+    <div id="<%= dom_id recipe %>" class="recipe-container">
+  <%= link_to user_recipe_path(recipe.user, recipe), class: "recipe-container-link" do %>
+  <div class="public-recipe-con">
+    <p>
+      <%= recipe.name %>
+    </p>
+    <p class="recipe-description-text">
+      Total Food Items: <%= recipe.recipe_foods.size %>
+    </p>
+    <p class="recipe-description-text">
+    Total Price: <%= recipe.recipe_foods.joins(:food).sum('foods.price') %>
+   </p>
+    <br/>
+    <p>
+      By: <%= recipe.user.name %>
+    </p>
+    </div>
+    <% end %>
+    </div>
+
+  <% end %>
+</div>
+

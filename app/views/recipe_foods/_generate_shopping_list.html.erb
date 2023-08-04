@@ -1,0 +1,25 @@
+<h5>Shopping List for <%= @recipe.name %></h5>
+<table>
+  <thead>
+    <tr>
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Value</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @recipe.recipe_foods.each do |recipe_food|  %>
+      <tr>
+        <td><%= recipe_food.food.name %></td>
+        <td><%= recipe_food.quantity %></td>
+        <td><%= recipe_food.food.price %></td>
+        <% if @recipe.user == current_user %>
+          <td class= 'action-column'><%= button_to "Modify", recipe_food, method: :delete %>
+          <%= button_to "Delete", recipe_food, method: :delete %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
